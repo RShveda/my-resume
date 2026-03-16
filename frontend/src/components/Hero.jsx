@@ -1,7 +1,13 @@
 export default function Hero() {
   return (
     <section id="hero" className="py-16 sm:py-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-start gap-8">
+        <img
+          src="/avatar.jpeg"
+          alt="Roman Shveda"
+          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover ring-2 ring-blue-100 dark:ring-blue-900 flex-shrink-0"
+        />
+        <div>
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
           Roman Shveda
         </h1>
@@ -33,6 +39,7 @@ export default function Hero() {
           practices (CI/CD, code reviews, unit testing), and delivering
           business-critical features.
         </p>
+        </div>
       </div>
     </section>
   );
