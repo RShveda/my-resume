@@ -37,7 +37,7 @@ export default function Hero() {
           hospitality, manufacturing, and e-commerce industries. Proven track
           record of designing modular solutions, implementing engineering best
           practices (CI/CD, code reviews, unit testing), and delivering
-          business-critical features.
+          business-critical features. Strong technical leadership demonstrated through mentoring developers, making architecture decisions, and bridging technical and business requirements. Certified Professional Scrum Master with cloud infrastructure experience on GCP. Actively leverages AI development tools (Claude Code) to enhance productivity and code quality.
         </p>
         </div>
       </div>
