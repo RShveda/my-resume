@@ -22,3 +22,36 @@
 6. Run tests: `pytest`
 
 Config is loaded from `backend/.env` (auto-read by `settings.py`, uses `os.environ.setdefault` so Docker env vars take precedence).
+
+## Production Deployment (GCP)
+- **Host**: GCP e2-micro (1 GB RAM) in us-west1 with a static external IP.
+- **Domain**: `roman-shveda.duckdns.org` (DuckDNS free dynamic DNS).
+- **SSL**: Let's Encrypt via `certbot`, auto-renewed by certbot's built-in scheduled task.
+- **Swap**: 1 GB swap file on the VM to compensate for limited RAM.
+- **Docker API**: `DOCKER_API_VERSION=1.41` is set in `~/.bashrc` on the VM (client/engine version mismatch workaround).
+
+### Architecture
+```
+Internet → nginx (ports 80/443, SSL termination)
+             ├── /           → frontend (nginx serving static React build, port 3000)
+             ├── /api/       → backend (gunicorn, port 8000)
+             ├── /admin/     → backend (Django admin)
+             └── /static/    → backend (Django static files)
+           HTTP → HTTPS redirect
+           PostgreSQL (internal only, port 5432)
+```
+
+### Key Files
+- `docker-compose.prod.yml` — production stack (db, backend, frontend, nginx reverse proxy).
+- `nginx/nginx.conf` — SSL reverse proxy config.
+- `.env.prod` — production secrets (not committed). Template: `.env.prod.example`.
+
+### Production Commands
+- All `make prod-*` commands use `--env-file .env.prod` for compose variable interpolation.
+- `make prod-up` — build and start. `make prod-down` — stop. `make prod-logs` — follow logs.
+- Gunicorn runs with **2 workers** (reduced from 3 for e2-micro memory constraints).
+
+### Deploy Workflow (on the VM)
+```bash
+cd ~/resume && git pull && make prod-up
+```
