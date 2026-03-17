@@ -128,6 +128,7 @@ resume/
 - [x] **Step 2**: Django backend — models, admin, serializers, viewsets, seed command, unit tests
 - [x] **Step 3**: React frontend — Tailwind theming, useFetch hook, all components, API wiring, smooth scroll, responsive, tests
 - [x] **Step 4**: Integration & polish — full stack Docker Compose, seed on first run, loading/error states
+- [x] **Step 5**: Production readiness — multi-stage Dockerfile, nginx, docker-compose.prod.yml, Django hardening, .dockerignore, Makefile targets, README
 
 ## Verification Checklist
 

@@ -50,4 +50,14 @@ install-frontend:
 
 install: install-backend install-frontend
 
-.PHONY: up down logs db run-backend makemigrations migrate seed createsuperuser run-frontend test-backend test-frontend test install-backend install-frontend install
+# Production commands
+prod-up:
+	docker compose -f docker-compose.prod.yml up --build -d
+
+prod-down:
+	docker compose -f docker-compose.prod.yml down
+
+prod-logs:
+	docker compose -f docker-compose.prod.yml logs -f
+
+.PHONY: up down logs db run-backend makemigrations migrate seed createsuperuser run-frontend test-backend test-frontend test install-backend install-frontend install prod-up prod-down prod-logs
