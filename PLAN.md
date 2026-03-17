@@ -129,6 +129,7 @@ resume/
 - [x] **Step 3**: React frontend — Tailwind theming, useFetch hook, all components, API wiring, smooth scroll, responsive, tests
 - [x] **Step 4**: Integration & polish — full stack Docker Compose, seed on first run, loading/error states
 - [x] **Step 5**: Production readiness — multi-stage Dockerfile, nginx, docker-compose.prod.yml, Django hardening, .dockerignore, Makefile targets, README
+- [x] **Step 6**: SSL + reverse proxy — nginx reverse proxy with Let's Encrypt SSL, HTTPS redirect, routes `/api/` and `/admin/` to backend
 
 ## Verification Checklist
 

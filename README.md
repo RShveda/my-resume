@@ -67,30 +67,52 @@ Intended for a Cloud VM with a `git pull` + `docker compose` workflow.
 
 ```bash
 cp .env.prod.example .env.prod
-# Edit .env.prod — set strong passwords, real domain, secret key
+# Edit .env.prod — set strong passwords, domain, secret key
 ```
 
-### 2. Build and start
+### 2. Obtain SSL certificate
+
+Install certbot and get a Let's Encrypt certificate (stop any services using port 80 first):
 
 ```bash
-make prod-up
+sudo apt-get install -y certbot
+sudo certbot certonly --standalone -d roman-shveda.duckdns.org
 ```
 
-This builds the frontend as static files served by nginx (port 3000) and runs the backend with gunicorn (port 8000).
+Set up auto-renewal:
 
-### 3. Updating
+```bash
+echo "0 3 * * * certbot renew --quiet && docker compose -f ~/resume/docker-compose.prod.yml --env-file ~/resume/.env.prod restart nginx" | sudo crontab -
+```
+
+### 3. Build and start
+
+```bash
+make prod-up            # uses --env-file .env.prod automatically
+```
+
+An nginx reverse proxy handles SSL termination and routes:
+- `https://roman-shveda.duckdns.org` → frontend
+- `https://roman-shveda.duckdns.org/api/` → backend API
+- `https://roman-shveda.duckdns.org/admin/` → Django admin
+
+HTTP requests are redirected to HTTPS automatically.
+
+### 4. Updating
 
 ```bash
 git pull
 make prod-up            # rebuilds and restarts
 ```
 
-### 4. Other production commands
+### 5. Other production commands
 
 ```bash
 make prod-logs          # follow logs
 make prod-down          # stop all services
 ```
+
+> All `prod-*` commands pass `--env-file .env.prod` so that variable interpolation in the compose file works correctly.
 
 ## Makefile Reference
 
@@ -121,6 +143,8 @@ resume/
 ├── Makefile
 ├── .env.example                # Dev environment template
 ├── .env.prod.example           # Production environment template
+├── nginx/
+│   └── nginx.conf              # SSL reverse proxy config
 ├── backend/
 │   ├── Dockerfile
 │   ├── requirements.txt

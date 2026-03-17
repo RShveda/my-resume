@@ -52,12 +52,12 @@ install: install-backend install-frontend
 
 # Production commands
 prod-up:
-	docker compose -f docker-compose.prod.yml up --build -d
+	docker compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
 
 prod-down:
-	docker compose -f docker-compose.prod.yml down
+	docker compose -f docker-compose.prod.yml --env-file .env.prod down
 
 prod-logs:
-	docker compose -f docker-compose.prod.yml logs -f
+	docker compose -f docker-compose.prod.yml --env-file .env.prod logs -f
 
 .PHONY: up down logs db run-backend makemigrations migrate seed createsuperuser run-frontend test-backend test-frontend test install-backend install-frontend install prod-up prod-down prod-logs

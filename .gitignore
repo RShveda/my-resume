@@ -18,3 +18,4 @@ dist/
 *.log
 *.docx
 .DS_Store
+.secrets
