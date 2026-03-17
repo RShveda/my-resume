@@ -5,6 +5,7 @@ import Experience from "./components/Experience";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import Project from "./components/Project";
 import Skills from "./components/Skills";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Experience />
         <Education />
         <Certifications />
+        <Project />
         <Contact />
       </main>
       <Footer />

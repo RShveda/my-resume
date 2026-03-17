@@ -1,5 +1,7 @@
 # Resume / CV Website
 
+**Live:** [https://roman-shveda.duckdns.org](https://roman-shveda.duckdns.org/)
+
 A personal resume website with a React + Tailwind frontend and a Django REST API backend, all containerized with Docker Compose.
 
 ## Tech Stack
