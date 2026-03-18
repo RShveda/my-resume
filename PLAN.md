@@ -184,3 +184,13 @@ User → ChatWidget (React) → POST /api/chat/ → Django view
 - [x] **Step 13**: ChatWidget React component and App mount
 - [x] **Step 14**: Backend tests (`test_chat.py`) and frontend tests (`ChatWidget.test.jsx`)
 - [x] **Step 15**: Environment variables update (`.env`, `.env.example`, `.env.prod.example`)
+
+## Phase 3: Chat Endpoint Security Hardening
+
+### Implementation Steps
+- [x] **Step 16**: Honeypot field — hidden `website` field in frontend, backend silently returns fake response for bots
+- [x] **Step 17**: Re-enable CSRF protection — removed `@csrf_exempt`, added `CSRF_COOKIE_HTTPONLY = False`, frontend sends `X-CSRFToken` header
+- [x] **Step 18**: Groq API timeout — `timeout=30` on Groq client to prevent hanging workers
+- [x] **Step 19**: Nginx hardening — `client_max_body_size 2k` on `/api/`, `limit_req_zone` + `limit_req` for `/api/chat/` (2r/s burst 5)
+- [x] **Step 20**: JS timestamp challenge — frontend sends `_ts` (widget open time), backend rejects requests < 3s old
+- [x] **Step 21**: Updated tests — honeypot, timestamp, CSRF enforcement tests; rate-limit bypass for streaming tests

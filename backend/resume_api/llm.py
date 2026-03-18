@@ -8,7 +8,7 @@ _client = None
 def _get_client():
     global _client
     if _client is None:
-        _client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+        _client = Groq(api_key=os.environ.get("GROQ_API_KEY"), timeout=30)
     return _client
 
 

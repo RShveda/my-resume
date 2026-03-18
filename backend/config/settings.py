@@ -14,9 +14,11 @@ if _env_file.exists():
             key, _, value = line.partition("=")
             os.environ.setdefault(key.strip(), value.strip())
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "insecure-dev-key")
-
 DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "" if not DEBUG else "insecure-dev-key")
+if not SECRET_KEY:
+    raise ValueError("DJANGO_SECRET_KEY environment variable is required in production")
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
@@ -93,8 +95,11 @@ CORS_ALLOWED_ORIGINS = (
     else ["http://localhost:3000", "http://localhost:5173"]
 )
 
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies (CSRF token) on cross-origin requests
+
 # CSRF
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS[:]
+CSRF_COOKIE_HTTPONLY = False  # Allow JS to read csrftoken cookie for AJAX POST
 
 # Security hardening for production
 if not DEBUG:
@@ -104,10 +109,29 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = "DENY"
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+# django-ratelimit: use real client IP from nginx X-Forwarded-For, not Docker bridge IP.
+# Falls back to REMOTE_ADDR when header is absent (local dev / tests).
+RATELIMIT_IP_META_KEY = lambda r: (
+    r.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0].strip()
+    or r.META.get("REMOTE_ADDR", "")
+)
 
 # DRF
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
+    **(
+        {
+            "DEFAULT_RENDERER_CLASSES": [
+                "rest_framework.renderers.JSONRenderer",
+            ],
+        }
+        if not DEBUG
+        else {}
+    ),
 }

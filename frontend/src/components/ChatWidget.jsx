@@ -2,6 +2,11 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
 
+function getCsrfToken() {
+  const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^\s;]+)/);
+  return match ? match[1] : null;
+}
+
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -11,6 +16,7 @@ export default function ChatWidget() {
   const [isStreaming, setIsStreaming] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const openedAtRef = useRef(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView?.({ behavior: "smooth" });
@@ -21,8 +27,13 @@ export default function ChatWidget() {
   }, [messages, scrollToBottom]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      openedAtRef.current = Date.now();
+      inputRef.current?.focus();
+      // Fetch CSRF cookie from Django so POST requests include it
+      if (!getCsrfToken()) {
+        fetch(`${API_URL}/csrf/`, { credentials: "include" }).catch(() => {});
+      }
     }
   }, [isOpen]);
 
@@ -38,10 +49,19 @@ export default function ChatWidget() {
     setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
     try {
+      const csrfToken = getCsrfToken();
+      const headers = { "Content-Type": "application/json" };
+      if (csrfToken) headers["X-CSRFToken"] = csrfToken;
+
       const response = await fetch(`${API_URL}/chat/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        headers,
+        credentials: "include",
+        body: JSON.stringify({
+          message: text,
+          website: "",
+          _ts: openedAtRef.current || Date.now(),
+        }),
       });
 
       if (response.status === 429) {

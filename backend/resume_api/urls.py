@@ -10,6 +10,7 @@ router.register(r"certifications", views.CertificationViewSet)
 
 urlpatterns = [
     path("health/", views.health_check, name="health-check"),
+    path("csrf/", views.csrf_token_view, name="csrf-token"),
     path("chat/", views.chat_view, name="chat"),
     path("", include(router.urls)),
 ]

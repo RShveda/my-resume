@@ -1,8 +1,9 @@
 import json
 import logging
+import time
 
 from django.http import JsonResponse, StreamingHttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django_ratelimit.decorators import ratelimit
 from rest_framework import viewsets
@@ -14,10 +15,18 @@ from .serializers import CertificationSerializer, ExperienceSerializer, SkillSer
 
 logger = logging.getLogger(__name__)
 
+_MIN_TIME_ON_PAGE_MS = 3000
+
 
 @api_view(["GET"])
 def health_check(request):
     return Response({"status": "ok"})
+
+
+@ensure_csrf_cookie
+def csrf_token_view(request):
+    """Set the CSRF cookie so JS clients can read it for POST requests."""
+    return JsonResponse({"ok": True})
 
 
 class SkillViewSet(viewsets.ReadOnlyModelViewSet):
@@ -35,7 +44,18 @@ class CertificationViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CertificationSerializer
 
 
-@csrf_exempt
+def _fake_stream_response():
+    """Return a fake 200 streaming response to waste bot time."""
+    def fake_stream():
+        yield f"data: {json.dumps({'token': 'Thanks for your message!'})}\n\n"
+        yield f"data: {json.dumps({'done': True})}\n\n"
+
+    response = StreamingHttpResponse(fake_stream(), content_type="text/event-stream")
+    response["Cache-Control"] = "no-cache"
+    response["X-Accel-Buffering"] = "no"
+    return response
+
+
 @require_POST
 @ratelimit(key="ip", rate="10/h", block=True)
 def chat_view(request):
@@ -43,6 +63,22 @@ def chat_view(request):
         body = json.loads(request.body)
     except (json.JSONDecodeError, ValueError):
         return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+    # Honeypot check — bots auto-fill hidden fields, humans never see them
+    if body.get("website"):
+        return _fake_stream_response()
+
+    # Timestamp challenge — reject requests from bots that fire instantly
+    ts = body.get("_ts")
+    if ts is None:
+        return JsonResponse({"error": "Missing timestamp"}, status=400)
+    try:
+        ts = int(ts)
+    except (TypeError, ValueError):
+        return JsonResponse({"error": "Invalid timestamp"}, status=400)
+    now_ms = int(time.time() * 1000)
+    if now_ms - ts < _MIN_TIME_ON_PAGE_MS:
+        return JsonResponse({"error": "Too fast"}, status=400)
 
     message = body.get("message", "").strip()
     if not message:
