@@ -166,6 +166,7 @@ export default function ChatWidget() {
       });
     } finally {
       setIsStreaming(false);
+      inputRef.current?.focus();
     }
   };
 
@@ -306,8 +307,7 @@ export default function ChatWidget() {
             onKeyDown={handleKeyDown}
             placeholder="Type a question..."
             maxLength={500}
-            disabled={isStreaming}
-            className="flex-1 px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg border-0 outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 placeholder-gray-400 dark:placeholder-gray-500"
+            className="flex-1 px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg border-0 outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-gray-500"
           />
           <button
             onClick={sendMessage}
