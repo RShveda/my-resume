@@ -1,0 +1,146 @@
+[
+  {
+    "question": "What is your current role?",
+    "answer": "I'm currently a Senior Software Engineer at HTS, where I've been working since November 2022. I work remotely and focus on enterprise application development for the hospitality industry."
+  },
+  {
+    "question": "What programming languages do you know?",
+    "answer": "My primary languages are Python and JavaScript. I also work with SQL and XML. Python is my strongest language — I use it daily for backend development with Django and Odoo ERP."
+  },
+  {
+    "question": "What frameworks do you use?",
+    "answer": "I work with Django and Django REST Framework for backend APIs, React for frontend development, and Odoo ERP for enterprise applications. I also have experience with aiohttp for async Python web services."
+  },
+  {
+    "question": "Do you have experience with databases?",
+    "answer": "Yes, I have strong experience with PostgreSQL (my primary database), MySQL, MongoDB, and Redis. I work with database design, optimization, and migrations regularly."
+  },
+  {
+    "question": "What DevOps tools do you use?",
+    "answer": "I work with Docker, Kubernetes, CI/CD pipelines (GitHub Actions and GitLab CI), and Git for version control. I have cloud infrastructure experience on Google Cloud Platform and Heroku."
+  },
+  {
+    "question": "Do you have cloud experience?",
+    "answer": "Yes, I manage cloud infrastructure on Google Cloud Platform (GCP) at HTS, ensuring 99.5% uptime. I also have a Google Cloud certification in DevOps. I've used Heroku for deployments as well."
+  },
+  {
+    "question": "What is your experience with Odoo?",
+    "answer": "I have deep expertise in Odoo ERP spanning my roles at HTS and Bytebrand. I've led enterprise migrations between Odoo versions, developed custom modules (20+), built REST APIs for web booking engines, and created automated financial reporting systems within the Odoo ecosystem."
+  },
+  {
+    "question": "Tell me about your experience at HTS.",
+    "answer": "At HTS (Nov 2022 – present), I'm a Senior Software Engineer working on enterprise hospitality applications. Key achievements include: leading a multi-version Odoo migration ensuring data integrity, developing a custom onboarding app for 5 new hotel properties, building automated financial reporting, introducing code review and testing practices, managing GCP infrastructure with 99.5% uptime, and leading technical interviews."
+  },
+  {
+    "question": "Tell me about your experience at Bytebrand.",
+    "answer": "At Bytebrand Outsourcing AG (Nov 2020 – Nov 2022), I was a Software Engineer focused on enterprise applications. I achieved 10x performance improvements by profiling Python code, rescued a failing enterprise upgrade by implementing a migration framework, introduced CI/CD via GitLab CI, maintained 20+ custom modules, and built automated pricing synchronization tools."
+  },
+  {
+    "question": "Tell me about your experience at ArtfulBits.",
+    "answer": "At ArtfulBits (Nov 2015 – Nov 2020), I served as Technical Project Manager and Scrum Master. I managed end-to-end software projects with teams up to 10 members, led Scrum ceremonies improving team velocity by 25%, recruited and developed Agile teams, bridged technical and business stakeholders, and maintained high client retention."
+  },
+  {
+    "question": "Do you have project management experience?",
+    "answer": "Yes, I have 5 years of technical project management experience from my role at ArtfulBits (2015-2020). I managed end-to-end software development projects, led Scrum ceremonies, recruited and developed Agile teams, and bridged communication between technical teams and business stakeholders."
+  },
+  {
+    "question": "Are you a certified Scrum Master?",
+    "answer": "Yes, I hold a Professional Scrum Master I (PSM I) certification. I applied Scrum practices extensively during my time at ArtfulBits, where I improved team velocity by 25%."
+  },
+  {
+    "question": "What is your education?",
+    "answer": "I have a Bachelor's degree in Finance from Kyiv European University (2004-2008). While my degree is in Finance, I've built my technical career through hands-on experience, self-study, and professional certifications."
+  },
+  {
+    "question": "What certifications do you have?",
+    "answer": "I hold several certifications: Professional Scrum Master I (PSM I), CS50 from Harvard, Python and Django Full Stack Developer Bootcamp, The Complete JavaScript Course, Implement DevOps in Google Cloud, Introduction to Generative AI (Google), and Introduction to Kubernetes (Linux Foundation)."
+  },
+  {
+    "question": "Where are you located?",
+    "answer": "I'm based in Portugal and work remotely."
+  },
+  {
+    "question": "Are you open to remote work?",
+    "answer": "Yes, I've been working remotely since 2020 — both at Bytebrand and in my current role at HTS. I'm experienced with remote collaboration and distributed teams."
+  },
+  {
+    "question": "What are your strongest skills?",
+    "answer": "My core strengths are Python backend development (Django, Odoo ERP), PostgreSQL, and full-stack development. Beyond coding, I bring strong technical leadership — I mentor developers, make architecture decisions, and bridge technical and business requirements. I'm also experienced with DevOps practices and cloud infrastructure on GCP."
+  },
+  {
+    "question": "Do you use AI tools?",
+    "answer": "Yes, I actively use AI development tools like Claude Code and GitHub Copilot to enhance productivity and code quality. This resume website itself was built with the help of Claude Code."
+  },
+  {
+    "question": "What industries have you worked in?",
+    "answer": "I have experience across hospitality (hotel property management systems at HTS and Bytebrand), manufacturing, and e-commerce industries. My enterprise application work primarily targets the hospitality sector."
+  },
+  {
+    "question": "Can you describe a challenging project?",
+    "answer": "One of my most challenging projects was leading an enterprise application migration from a legacy version to the latest release at HTS. It involved ensuring data integrity for critical financial and contact records across a multi-version upgrade path, which required careful planning, testing, and coordination."
+  },
+  {
+    "question": "What performance improvements have you achieved?",
+    "answer": "At Bytebrand, I achieved 10x performance gains in mission-critical operations like automated invoice creation and report generation. I accomplished this by profiling Python code and resolving architectural bottlenecks."
+  },
+  {
+    "question": "Do you have experience with CI/CD?",
+    "answer": "Yes, I introduced CI/CD pipelines at Bytebrand using GitLab CI, which streamlined deployments and improved code stability. I also work with GitHub Actions. At HTS, I established code review and unit testing practices as part of the development workflow."
+  },
+  {
+    "question": "How do you approach code quality?",
+    "answer": "I'm a strong advocate for engineering best practices. At HTS, I introduced code review and unit testing practices that reduced production bugs. I believe in CI/CD, automated testing, and clean architecture. I also leverage AI tools to enhance code quality."
+  },
+  {
+    "question": "Do you have leadership experience?",
+    "answer": "Yes, across my career I've demonstrated technical leadership in various ways: leading technical interviews and onboarding at HTS, mentoring developers and making architecture decisions, and managing teams of up to 10 members as a Technical PM and Scrum Master at ArtfulBits."
+  },
+  {
+    "question": "What is your experience with Docker and Kubernetes?",
+    "answer": "I use Docker daily for development and production deployments. I built this resume website's infrastructure with Docker Compose, including multi-stage builds and nginx reverse proxy. I also have Kubernetes experience and hold a Linux Foundation Kubernetes certification."
+  },
+  {
+    "question": "How can I contact you?",
+    "answer": "You can reach me via email at rshveda@gmail.com or connect with me on LinkedIn at linkedin.com/in/roman-shveda."
+  },
+  {
+    "question": "What is this website built with?",
+    "answer": "This resume website is built with React and Tailwind CSS on the frontend, Django REST Framework on the backend, and PostgreSQL for the database. Everything runs in Docker Compose, with nginx as a reverse proxy and Let's Encrypt for SSL. It's deployed on a GCP e2-micro instance."
+  },
+  {
+    "question": "What is your total years of experience?",
+    "answer": "I have over 10 years of professional experience in total: 6+ years of hands-on software development (since 2020 as a developer, since 2022 as a senior engineer) and 5 years of technical project management (2015-2020)."
+  },
+  {
+    "question": "Do you have experience with React?",
+    "answer": "Yes, I use React for frontend development. This resume website was built with React 18 and Tailwind CSS, featuring a responsive design with dark mode support, dynamic data fetching from the Django backend, and a component-based architecture."
+  },
+  {
+    "question": "What makes you different from other candidates?",
+    "answer": "My unique combination of technical depth and project management experience sets me apart. I can write performant Python code and lead enterprise migrations, but I also understand Agile processes, team dynamics, and stakeholder management from 5 years as a Scrum Master. This dual perspective helps me make better architectural decisions and communicate effectively across all levels."
+  },
+  {
+    "question": "Do you have experience with REST APIs?",
+    "answer": "Yes, I build RESTful APIs regularly with Django REST Framework. At Bytebrand, I built and maintained backend REST APIs for a web booking engine. This resume website also exposes a REST API for skills, experience, and certifications data."
+  },
+  {
+    "question": "What is your experience with financial systems?",
+    "answer": "At HTS, I built an automated financial reporting system that aggregates data from POS, Reservations, and Sales streams, reducing manual reconciliation time for hotel accounting teams. I also handled financial data migrations ensuring data integrity for critical financial records."
+  },
+  {
+    "question": "Have you worked with async Python?",
+    "answer": "Yes, I have experience with aiohttp for building asynchronous Python web services. I also have experience with synchronous frameworks like Django."
+  },
+  {
+    "question": "What is your visa status?",
+    "answer": "I'm based in Portugal. For specific visa or work authorization details, please contact me directly at rshveda@gmail.com."
+  },
+  {
+    "question": "What are your salary expectations?",
+    "answer": "I'd prefer to discuss compensation details directly. Please feel free to reach out to me at rshveda@gmail.com to have that conversation."
+  },
+  {
+    "question": "Are you available for freelance work?",
+    "answer": "For availability and engagement type discussions, please contact me directly at rshveda@gmail.com."
+  }
+]

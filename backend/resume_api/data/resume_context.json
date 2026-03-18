@@ -1,0 +1,75 @@
+{
+  "name": "Roman Shveda",
+  "title": "Senior Software Engineer",
+  "location": "Portugal",
+  "email": "rshveda@gmail.com",
+  "linkedin": "https://linkedin.com/in/roman-shveda",
+  "summary": "Senior Software Engineer with 6 years of hands-on backend and frontend development experience and 5 years of technical project management background. Deep expertise in Python, PostgreSQL, and full-stack development, specializing in enterprise application development for hospitality, manufacturing, and e-commerce industries. Proven track record of designing modular solutions, implementing engineering best practices (CI/CD, code reviews, unit testing), and delivering business-critical features. Strong technical leadership demonstrated through mentoring developers, making architecture decisions, and bridging technical and business requirements. Certified Professional Scrum Master with cloud infrastructure experience on GCP. Actively leverages AI development tools (Claude Code) to enhance productivity and code quality.",
+  "skills": {
+    "Programming": ["Python", "JavaScript", "SQL", "XML"],
+    "Frameworks & Technologies": ["Odoo ERP", "Django", "React", "aiohttp", "RESTful APIs", "HTML", "CSS"],
+    "Databases": ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
+    "DevOps & Cloud": ["Docker", "Kubernetes", "CI/CD", "Git", "GitHub Actions", "GitLab CI", "Google Cloud Platform", "Heroku"],
+    "AI-Assisted Development": ["Claude", "GitHub Copilot"],
+    "Methodologies": ["Agile", "Scrum", "DevOps"]
+  },
+  "experience": [
+    {
+      "company": "HTS",
+      "role": "Senior Software Engineer",
+      "start_date": "2022-11",
+      "end_date": null,
+      "location": "Remote",
+      "bullets": [
+        "Led enterprise application migration from legacy version to latest release using open-source migration framework, ensuring data integrity for critical financial and contact records across multi-version upgrade",
+        "Developed custom migration application that streamlined onboarding of 5 new hotel properties, reducing manual configuration time and accelerating time-to-market",
+        "Built automated financial reporting system aggregating data from POS, Reservations, and Sales streams, reducing manual reconciliation time for hotel accounting teams",
+        "Introduced code review and unit testing practices within the development team, establishing higher quality standards and reducing production-level bugs",
+        "Led technical interviews and created structured onboarding documentation, reducing ramp-up time for new engineering team members",
+        "Managed and maintained cloud infrastructure on GCP, ensuring 99.5% uptime while monitoring system performance and operational costs during client expansion"
+      ]
+    },
+    {
+      "company": "Bytebrand Outsourcing AG",
+      "role": "Software Engineer",
+      "start_date": "2020-11",
+      "end_date": "2022-11",
+      "location": "Remote",
+      "bullets": [
+        "Achieved 10x performance gains in mission-critical operations (automated invoice creation, report generation) by profiling Python code and resolving architectural bottlenecks",
+        "Advocated for and implemented open-source migration framework to rescue a failing enterprise application upgrade for a key client",
+        "Introduced CI/CD via GitLab CI, streamlining the deployment process and improving code stability across various production environments",
+        "Maintained and expanded 20+ custom application modules, including backend REST API for web booking engine and complex POS customizations",
+        "Built Python-based automated synchronization tool to scrape and update real-time pricing data from external services, eliminating manual data entry and ensuring price parity across platforms"
+      ]
+    },
+    {
+      "company": "ArtfulBits",
+      "role": "Technical Project Manager / Scrum Master",
+      "start_date": "2015-11",
+      "end_date": "2020-11",
+      "location": "On-site",
+      "bullets": [
+        "Managed end-to-end software development projects with teams up to 10 members, from requirements gathering through final delivery, consistently achieving project objectives and client satisfaction",
+        "Led Scrum ceremonies and implemented Agile best practices, improving team velocity by 25% and project delivery success rate",
+        "Recruited and developed high-performing Agile teams, establishing effective collaboration processes and fostering professional development",
+        "Bridged communication between technical teams and stakeholders, translating business requirements into technical specifications and ensuring alignment on project goals",
+        "Built strong client relationships and maintained high account retention through effective communication and consistent delivery of quality solutions"
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor's in Finance",
+    "university": "Kyiv European University",
+    "years": "2004-2008"
+  },
+  "certifications": [
+    "The Complete JavaScript Course 2025: From Zero to Expert (Udemy)",
+    "Python and Django Full Stack Web Developer Bootcamp (Udemy)",
+    "Professional Scrum Master I (PSM I)",
+    "CS50: Introduction to Computer Science (Harvard University / Prometheus)",
+    "Implement DevOps in Google Cloud (Google Cloud)",
+    "Introduction to Generative AI (Google)",
+    "Introduction to Kubernetes (The Linux Foundation / Prometheus)"
+  ]
+}

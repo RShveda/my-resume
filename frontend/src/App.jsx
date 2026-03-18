@@ -1,4 +1,5 @@
 import Certifications from "./components/Certifications";
+import ChatWidget from "./components/ChatWidget";
 import Contact from "./components/Contact";
 import Education from "./components/Education";
 import Experience from "./components/Experience";
@@ -22,6 +23,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

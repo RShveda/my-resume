@@ -44,14 +44,20 @@ resume/
 │   │   ├── urls.py
 │   │   └── wsgi.py
 │   ├── resume_api/           # Django app
-│   │   ├── models.py         # Skill, Experience, ExperienceBullet, Certification
+│   │   ├── models.py         # Skill, Experience, ExperienceBullet, Certification, ChatLog
 │   │   ├── serializers.py
-│   │   ├── views.py
+│   │   ├── views.py          # REST viewsets + SSE chat view
 │   │   ├── urls.py
 │   │   ├── admin.py
+│   │   ├── prompt.py         # System prompt builder
+│   │   ├── llm.py            # LLM client (Groq SDK)
+│   │   ├── data/
+│   │   │   ├── resume_context.json
+│   │   │   └── qa_pairs.json
 │   │   └── management/commands/seed_resume.py
 │   └── tests/
-│       └── test_api.py
+│       ├── test_api.py
+│       └── test_chat.py
 └── frontend/
     ├── Dockerfile
     ├── package.json
@@ -74,12 +80,14 @@ resume/
         │   ├── Education.jsx
         │   ├── Certifications.jsx
         │   ├── Contact.jsx
+        │   ├── ChatWidget.jsx
         │   ├── ThemeToggle.jsx
         │   └── Footer.jsx
         ├── hooks/
         │   └── useFetch.js
         └── __tests__/
             ├── App.test.jsx
+            ├── ChatWidget.test.jsx
             ├── Hero.test.jsx
             └── Skills.test.jsx
 ```
@@ -106,6 +114,7 @@ resume/
 | GET | `/api/skills/` | All skills |
 | GET | `/api/experience/` | Experiences with nested bullets |
 | GET | `/api/certifications/` | Certification entries |
+| POST | `/api/chat/` | SSE stream of AI chat tokens |
 
 ## Frontend Sections
 
@@ -142,12 +151,36 @@ resume/
 - [x] Theme toggle switches between light and dark mode
 - [x] Site is responsive on mobile viewport
 
-## Phase 2 (Future): AI Chat Widget
+## Phase 2: AI Chat Widget
 
-| Decision | Recommendation |
-|----------|---------------|
-| Chat UI | `@chatscope/chat-ui-kit-react` |
-| Communication | SSE via Django `StreamingHttpResponse` |
-| AI Backend | Groq free tier (Llama 3.3 70B) |
-| Rate Limiting | `django-ratelimit` (10 req/hr per IP) |
-| Cost | $0/month |
+### Architecture
+```
+User → ChatWidget (React) → POST /api/chat/ → Django view
+         ↑ streaming tokens                      ↓
+         ← text/event-stream            ┌── PromptBuilder (context layer)
+                                        │     reads static files:
+                                        │     ├── resume_context.json
+                                        │     └── qa_pairs.json
+                                        │     builds system prompt
+                                        └── LLMClient (API layer)
+                                              Groq SDK → Llama 3.3 70B
+```
+
+### Key Files
+- `backend/resume_api/data/resume_context.json` — structured resume data
+- `backend/resume_api/data/qa_pairs.json` — pre-answered Q&A pairs
+- `backend/resume_api/prompt.py` — loads context, builds system prompt
+- `backend/resume_api/llm.py` — Groq SDK wrapper (swappable)
+- `backend/resume_api/models.py` — ChatLog model
+- `frontend/src/components/ChatWidget.jsx` — floating chat widget
+
+### Implementation Steps
+- [x] **Step 7**: Backend dependencies — `groq`, `django-ratelimit`
+- [x] **Step 8**: Static context files — `resume_context.json`, `qa_pairs.json`
+- [x] **Step 9**: Prompt builder (`prompt.py`) and LLM client (`llm.py`)
+- [x] **Step 10**: ChatLog model and admin registration
+- [x] **Step 11**: SSE chat view (`POST /api/chat/`) with rate limiting
+- [x] **Step 12**: Nginx SSE support (`proxy_buffering off`)
+- [x] **Step 13**: ChatWidget React component and App mount
+- [x] **Step 14**: Backend tests (`test_chat.py`) and frontend tests (`ChatWidget.test.jsx`)
+- [x] **Step 15**: Environment variables update (`.env`, `.env.example`, `.env.prod.example`)

@@ -5,5 +5,7 @@ gunicorn==23.0.0
 whitenoise==6.8.2
 psycopg2-binary==2.9.10
 dj-database-url==2.3.0
+django-ratelimit==4.1.0
+groq==0.25.0
 pytest==8.3.4
 pytest-django==4.9.0
