@@ -9,18 +9,18 @@ describe("ChatWidget", () => {
 
   it("renders the chat bubble", () => {
     render(<ChatWidget />);
-    expect(screen.getByLabelText("Open chat")).toBeInTheDocument();
+    expect(screen.getByLabelText("Open AI chat")).toBeInTheDocument();
   });
 
   it("opens the chat window when bubble is clicked", () => {
     render(<ChatWidget />);
-    fireEvent.click(screen.getByLabelText("Open chat"));
-    expect(screen.getByText("Ask about Roman")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("Open AI chat"));
+    expect(screen.getByText(/Ask about Roman/)).toBeInTheDocument();
   });
 
   it("shows greeting message when opened", () => {
     render(<ChatWidget />);
-    fireEvent.click(screen.getByLabelText("Open chat"));
+    fireEvent.click(screen.getByLabelText("Open AI chat"));
     expect(
       screen.getByText(/Ask me anything about Roman/)
     ).toBeInTheDocument();
@@ -28,15 +28,15 @@ describe("ChatWidget", () => {
 
   it("closes the chat window", () => {
     render(<ChatWidget />);
-    fireEvent.click(screen.getByLabelText("Open chat"));
-    expect(screen.getByText("Ask about Roman")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("Open AI chat"));
+    expect(screen.getByText(/Ask about Roman/)).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText("Close chat"));
-    expect(screen.getByLabelText("Open chat")).toBeInTheDocument();
+    expect(screen.getByLabelText("Open AI chat")).toBeInTheDocument();
   });
 
   it("disables send button when input is empty", () => {
     render(<ChatWidget />);
-    fireEvent.click(screen.getByLabelText("Open chat"));
+    fireEvent.click(screen.getByLabelText("Open AI chat"));
     expect(screen.getByLabelText("Send message")).toBeDisabled();
   });
 
@@ -60,7 +60,7 @@ describe("ChatWidget", () => {
     );
 
     render(<ChatWidget />);
-    fireEvent.click(screen.getByLabelText("Open chat"));
+    fireEvent.click(screen.getByLabelText("Open AI chat"));
 
     const input = screen.getByPlaceholderText("Type a question...");
     fireEvent.change(input, { target: { value: "What skills?" } });
@@ -82,7 +82,7 @@ describe("ChatWidget", () => {
     );
 
     render(<ChatWidget />);
-    fireEvent.click(screen.getByLabelText("Open chat"));
+    fireEvent.click(screen.getByLabelText("Open AI chat"));
 
     const input = screen.getByPlaceholderText("Type a question...");
     fireEvent.change(input, { target: { value: "test" } });

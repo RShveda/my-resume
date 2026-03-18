@@ -68,7 +68,6 @@ class Certification(models.Model):
 class ChatLog(models.Model):
     question = models.TextField()
     answer = models.TextField()
-    ip_address = models.GenericIPAddressField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

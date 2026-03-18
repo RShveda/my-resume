@@ -9,6 +9,8 @@ function getCsrfToken() {
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLabel, setShowLabel] = useState(false);
+  const [labelVisible, setLabelVisible] = useState(false);
   const [messages, setMessages] = useState([
     { role: "assistant", content: "Hi! Ask me anything about Roman's experience, skills, or background." },
   ]);
@@ -25,6 +27,26 @@ export default function ChatWidget() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, scrollToBottom]);
+
+  // Show label on initial load and periodically
+  useEffect(() => {
+    if (isOpen) return;
+
+    const show = () => {
+      setShowLabel(true);
+      setLabelVisible(true);
+      setTimeout(() => {
+        setLabelVisible(false);
+        setTimeout(() => setShowLabel(false), 300);
+      }, 3000);
+    };
+
+    // Show after 2s on first load
+    const initialTimer = setTimeout(show, 2000);
+    // Then every 15s
+    const interval = setInterval(show, 15000);
+    return () => { clearTimeout(initialTimer); clearInterval(interval); };
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -145,23 +167,44 @@ export default function ChatWidget() {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        aria-label="Open chat"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-colors"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+        {/* Floating label */}
+        {showLabel && (
+          <div
+            className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm font-medium px-3 py-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 whitespace-nowrap pointer-events-none select-none"
+            style={{ animation: `${labelVisible ? "chat-label-enter" : "chat-label-exit"} 0.3s ease forwards` }}
+          >
+            <span className="text-indigo-500 font-semibold">AI</span> &mdash; Ask me about Roman!
+          </div>
+        )}
+        {/* Chat button */}
+        <button
+          onClick={() => setIsOpen(true)}
+          aria-label="Open AI chat"
+          className="relative w-14 h-14 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+          style={{ animation: "chat-glow 3s ease-in-out infinite" }}
+        >
+          {/* Chat icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          {/* AI sparkle badge */}
+          <span
+            className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center text-[10px] font-bold text-gray-900 ring-2 ring-white dark:ring-gray-900"
+            style={{ animation: "sparkle 2s ease-in-out infinite" }}
+          >
+            ✦
+          </span>
+        </button>
+      </div>
     );
   }
 
   return (
     <div className="fixed bottom-6 right-6 z-50 w-80 sm:w-96 h-[28rem] bg-white dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-blue-600 rounded-t-xl">
-        <span className="text-white font-medium text-sm">Ask about Roman</span>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-xl">
+        <span className="text-white font-medium text-sm">✦ AI &mdash; Ask about Roman</span>
         <button
           onClick={() => setIsOpen(false)}
           aria-label="Close chat"

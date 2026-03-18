@@ -30,10 +30,10 @@ class CertificationAdmin(admin.ModelAdmin):
 
 @admin.register(ChatLog)
 class ChatLogAdmin(admin.ModelAdmin):
-    list_display = ("short_question", "ip_address", "created_at")
+    list_display = ("short_question", "created_at")
     list_filter = ("created_at",)
     search_fields = ("question", "answer")
-    readonly_fields = ("question", "answer", "ip_address", "created_at")
+    readonly_fields = ("question", "answer", "created_at")
 
     def short_question(self, obj):
         return obj.question[:80]

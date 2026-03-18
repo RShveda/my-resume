@@ -9,3 +9,23 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes chat-glow {
+  0%, 100% { box-shadow: 0 0 8px 2px rgba(99, 102, 241, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15); }
+  50% { box-shadow: 0 0 20px 6px rgba(99, 102, 241, 0.6), 0 4px 12px rgba(0, 0, 0, 0.15); }
+}
+
+@keyframes chat-label-enter {
+  0% { opacity: 0; transform: translateX(8px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes chat-label-exit {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(8px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.8); }
+}

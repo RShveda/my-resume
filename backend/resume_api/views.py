@@ -86,8 +86,6 @@ def chat_view(request):
     if len(message) > 500:
         return JsonResponse({"error": "Message too long (max 500 characters)"}, status=400)
 
-    ip = _get_client_ip(request)
-
     from .llm import stream_chat
     from .prompt import build_system_prompt
 
@@ -110,7 +108,6 @@ def chat_view(request):
                     ChatLog.objects.create(
                         question=message,
                         answer=answer,
-                        ip_address=ip,
                     )
                 except Exception:
                     logger.exception("Failed to save chat log")
@@ -121,8 +118,3 @@ def chat_view(request):
     return response
 
 
-def _get_client_ip(request):
-    forwarded = request.META.get("HTTP_X_FORWARDED_FOR")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    return request.META.get("REMOTE_ADDR")
