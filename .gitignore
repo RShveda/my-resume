@@ -19,3 +19,5 @@ dist/
 *.docx
 .DS_Store
 .secrets
+.claudeignore
+.env.prod
