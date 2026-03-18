@@ -165,6 +165,89 @@ class TestChatView:
         assert log.question == "test question"
         assert log.answer == "Hello world"
 
+    @patch("django_ratelimit.decorators.is_ratelimited", return_value=False)
+    @patch("resume_api.llm.stream_chat")
+    @patch("resume_api.prompt.build_system_prompt")
+    def test_done_event_contains_chatlog_id(self, mock_prompt, mock_stream, _mock_rl):
+        from resume_api.models import ChatLog
+
+        mock_prompt.return_value = "system prompt"
+        mock_stream.return_value = iter(["Hello"])
+
+        response = _post_chat(self.client)
+        content = b"".join(response.streaming_content).decode()
+
+        log = ChatLog.objects.first()
+        assert f'"chatlog_id": {log.id}' in content
+        assert '"done": true' in content
+
+
+def _post_feedback(client, payload):
+    import json
+
+    return client.post(
+        "/api/chat/feedback/",
+        data=json.dumps(payload),
+        content_type="application/json",
+    )
+
+
+@pytest.mark.django_db
+class TestFeedbackView:
+    def setup_method(self):
+        self.client = Client()
+
+    def _create_chatlog(self):
+        from resume_api.models import ChatLog
+
+        return ChatLog.objects.create(question="test", answer="response")
+
+    def test_accepts_valid_feedback(self):
+        log = self._create_chatlog()
+        response = _post_feedback(self.client, {"chatlog_id": log.id, "feedback": True})
+        assert response.status_code == 200
+        log.refresh_from_db()
+        assert log.feedback is True
+
+    def test_accepts_negative_feedback(self):
+        log = self._create_chatlog()
+        response = _post_feedback(self.client, {"chatlog_id": log.id, "feedback": False})
+        assert response.status_code == 200
+        log.refresh_from_db()
+        assert log.feedback is False
+
+    def test_rejects_missing_fields(self):
+        response = _post_feedback(self.client, {"chatlog_id": 1})
+        assert response.status_code == 400
+
+    def test_rejects_non_boolean_feedback(self):
+        log = self._create_chatlog()
+        response = _post_feedback(self.client, {"chatlog_id": log.id, "feedback": "yes"})
+        assert response.status_code == 400
+
+    def test_rejects_nonexistent_chatlog(self):
+        response = _post_feedback(self.client, {"chatlog_id": 99999, "feedback": True})
+        assert response.status_code == 404
+
+    def test_rejects_duplicate_feedback(self):
+        log = self._create_chatlog()
+        log.feedback = True
+        log.save()
+        response = _post_feedback(self.client, {"chatlog_id": log.id, "feedback": False})
+        assert response.status_code == 409
+
+    def test_rejects_get(self):
+        response = self.client.get("/api/chat/feedback/")
+        assert response.status_code == 405
+
+    def test_rejects_invalid_json(self):
+        response = self.client.post(
+            "/api/chat/feedback/",
+            data="not json",
+            content_type="application/json",
+        )
+        assert response.status_code == 400
+
 
 class TestPromptBuilder:
     def test_builds_prompt_with_context(self):

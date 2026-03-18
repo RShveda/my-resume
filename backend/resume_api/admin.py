@@ -30,15 +30,24 @@ class CertificationAdmin(admin.ModelAdmin):
 
 @admin.register(ChatLog)
 class ChatLogAdmin(admin.ModelAdmin):
-    list_display = ("short_question", "created_at")
-    list_filter = ("created_at",)
+    list_display = ("short_question", "feedback_icon", "created_at")
+    list_filter = ("created_at", "feedback")
     search_fields = ("question", "answer")
-    readonly_fields = ("question", "answer", "created_at")
+    readonly_fields = ("question", "answer", "feedback", "created_at")
 
     def short_question(self, obj):
         return obj.question[:80]
 
     short_question.short_description = "Question"
+
+    def feedback_icon(self, obj):
+        if obj.feedback is True:
+            return "\U0001f44d"
+        elif obj.feedback is False:
+            return "\U0001f44e"
+        return "\u2014"
+
+    feedback_icon.short_description = "Feedback"
 
     def has_add_permission(self, request):
         return False

@@ -129,6 +129,17 @@ export default function ChatWidget() {
                 return updated;
               });
             }
+            if (data.done && data.chatlog_id && Math.random() < 0.1) {
+              setMessages((prev) => {
+                const updated = [...prev];
+                const last = updated[updated.length - 1];
+                updated[updated.length - 1] = {
+                  ...last,
+                  chatlogId: data.chatlog_id,
+                };
+                return updated;
+              });
+            }
             if (data.error) {
               setMessages((prev) => {
                 const updated = [...prev];
@@ -156,6 +167,29 @@ export default function ChatWidget() {
     } finally {
       setIsStreaming(false);
     }
+  };
+
+  const submitFeedback = async (msgIndex, chatlogId, feedback) => {
+    try {
+      const csrfToken = getCsrfToken();
+      const headers = { "Content-Type": "application/json" };
+      if (csrfToken) headers["X-CSRFToken"] = csrfToken;
+
+      await fetch(`${API_URL}/chat/feedback/`, {
+        method: "POST",
+        headers,
+        credentials: "include",
+        body: JSON.stringify({ chatlog_id: chatlogId, feedback }),
+      });
+    } catch {
+      // silently ignore feedback errors
+    }
+
+    setMessages((prev) => {
+      const updated = [...prev];
+      updated[msgIndex] = { ...updated[msgIndex], feedbackGiven: true };
+      return updated;
+    });
   };
 
   const handleKeyDown = (e) => {
@@ -219,7 +253,7 @@ export default function ChatWidget() {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
         {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+          <div key={i} className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}>
             <div
               className={`max-w-[80%] px-3 py-2 rounded-lg text-sm whitespace-pre-wrap ${
                 msg.role === "user"
@@ -232,6 +266,30 @@ export default function ChatWidget() {
                 <span className="inline-block w-1.5 h-4 ml-0.5 bg-current animate-pulse align-middle" />
               )}
             </div>
+            {msg.role === "assistant" && msg.chatlogId && !msg.feedbackGiven && (
+              <div className="flex items-center gap-1.5 mt-1 ml-1">
+                <span className="text-xs text-gray-400">How was my reply?</span>
+                <button
+                  onClick={() => submitFeedback(i, msg.chatlogId, true)}
+                  aria-label="Thumbs up"
+                  className="text-gray-400 hover:text-green-500 transition-colors text-sm p-0.5"
+                >
+                  👍
+                </button>
+                <button
+                  onClick={() => submitFeedback(i, msg.chatlogId, false)}
+                  aria-label="Thumbs down"
+                  className="text-gray-400 hover:text-red-500 transition-colors text-sm p-0.5"
+                >
+                  👎
+                </button>
+              </div>
+            )}
+            {msg.role === "assistant" && msg.feedbackGiven && (
+              <div className="text-xs text-gray-400 mt-1 ml-1">
+                Thanks! Have another question?
+              </div>
+            )}
           </div>
         ))}
         <div ref={messagesEndRef} />

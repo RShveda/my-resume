@@ -68,6 +68,7 @@ class Certification(models.Model):
 class ChatLog(models.Model):
     question = models.TextField()
     answer = models.TextField()
+    feedback = models.BooleanField(null=True, blank=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -97,24 +97,56 @@ def chat_view(request):
             for token in stream_chat(system_prompt, message):
                 full_response.append(token)
                 yield f"data: {json.dumps({'token': token})}\n\n"
-            yield f"data: {json.dumps({'done': True})}\n\n"
-        except Exception:
-            logger.exception("LLM streaming error")
-            yield f"data: {json.dumps({'error': 'Something went wrong. Please try again.'})}\n\n"
-        finally:
+
             answer = "".join(full_response)
+            done_data = {"done": True}
             if answer:
                 try:
-                    ChatLog.objects.create(
+                    chat_log = ChatLog.objects.create(
                         question=message,
                         answer=answer,
                     )
+                    done_data["chatlog_id"] = chat_log.id
                 except Exception:
                     logger.exception("Failed to save chat log")
+            yield f"data: {json.dumps(done_data)}\n\n"
+        except Exception:
+            logger.exception("LLM streaming error")
+            yield f"data: {json.dumps({'error': 'Something went wrong. Please try again.'})}\n\n"
 
     response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
     response["Cache-Control"] = "no-cache"
     response["X-Accel-Buffering"] = "no"
     return response
+
+
+@require_POST
+@ratelimit(key="ip", rate="30/h", block=True)
+def feedback_view(request):
+    try:
+        body = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+    chatlog_id = body.get("chatlog_id")
+    feedback = body.get("feedback")
+
+    if chatlog_id is None or feedback is None:
+        return JsonResponse({"error": "chatlog_id and feedback are required"}, status=400)
+
+    if not isinstance(feedback, bool):
+        return JsonResponse({"error": "feedback must be a boolean"}, status=400)
+
+    try:
+        chat_log = ChatLog.objects.get(id=chatlog_id)
+    except ChatLog.DoesNotExist:
+        return JsonResponse({"error": "ChatLog not found"}, status=404)
+
+    if chat_log.feedback is not None:
+        return JsonResponse({"error": "Feedback already submitted"}, status=409)
+
+    chat_log.feedback = feedback
+    chat_log.save(update_fields=["feedback"])
+    return JsonResponse({"ok": True})
 
 
