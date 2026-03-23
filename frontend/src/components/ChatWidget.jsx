@@ -236,7 +236,7 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-0 right-0 left-0 sm:bottom-6 sm:right-6 sm:left-auto z-50 w-full sm:w-96 h-[100dvh] sm:h-[28rem] bg-white dark:bg-gray-800 sm:rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+    <div className="fixed inset-0 sm:bottom-6 sm:right-6 sm:left-auto sm:top-auto z-50 sm:w-96 h-[100dvh] sm:h-[28rem] max-w-[100vw] box-border bg-white dark:bg-gray-800 sm:rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-xl">
         <span className="text-white font-medium text-sm">✦ AI &mdash; Ask about Roman</span>
@@ -307,7 +307,7 @@ export default function ChatWidget() {
             onKeyDown={handleKeyDown}
             placeholder="Type a question..."
             maxLength={500}
-            className="flex-1 px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg border-0 outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-gray-500"
+            className="flex-1 min-w-0 px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg border-0 outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-gray-500"
           />
           <button
             onClick={sendMessage}
