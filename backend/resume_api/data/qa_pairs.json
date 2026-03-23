@@ -44,10 +44,6 @@
     "answer": "Yes, I have 5 years of technical project management experience from my role at ArtfulBits (2015-2020). I managed end-to-end software development projects, led Scrum ceremonies, recruited and developed Agile teams, and bridged communication between technical teams and business stakeholders."
   },
   {
-    "question": "Are you a certified Scrum Master?",
-    "answer": "Yes, I hold a Professional Scrum Master I (PSM I) certification. I applied Scrum practices extensively during my time at ArtfulBits, where I improved team velocity by 25%."
-  },
-  {
     "question": "What is your education?",
     "answer": "I have a Bachelor's degree in Finance from Kyiv European University (2004-2008). While my degree is in Finance, I've built my technical career through hands-on experience, self-study, and professional certifications."
   },
@@ -72,28 +68,12 @@
     "answer": "Yes, I actively use AI development tools like Claude Code and GitHub Copilot to enhance productivity and code quality. This resume website itself was built with the help of Claude Code."
   },
   {
-    "question": "What industries have you worked in?",
-    "answer": "I have experience across hospitality (hotel property management systems at HTS and Bytebrand), manufacturing, and e-commerce industries. My enterprise application work primarily targets the hospitality sector."
-  },
-  {
     "question": "Can you describe a challenging project?",
     "answer": "One of my most challenging projects was leading an enterprise application migration from a legacy version to the latest release at HTS. It involved ensuring data integrity for critical financial and contact records across a multi-version upgrade path, which required careful planning, testing, and coordination."
   },
   {
-    "question": "What performance improvements have you achieved?",
-    "answer": "At Bytebrand, I achieved 10x performance gains in mission-critical operations like automated invoice creation and report generation. I accomplished this by profiling Python code and resolving architectural bottlenecks."
-  },
-  {
     "question": "Do you have experience with CI/CD?",
     "answer": "Yes, I introduced CI/CD pipelines at Bytebrand using GitLab CI, which streamlined deployments and improved code stability. I also work with GitHub Actions. At HTS, I established code review and unit testing practices as part of the development workflow."
-  },
-  {
-    "question": "How do you approach code quality?",
-    "answer": "I'm a strong advocate for engineering best practices. At HTS, I introduced code review and unit testing practices that reduced production bugs. I believe in CI/CD, automated testing, and clean architecture. I also leverage AI tools to enhance code quality."
-  },
-  {
-    "question": "Do you have leadership experience?",
-    "answer": "Yes, across my career I've demonstrated technical leadership in various ways: leading technical interviews and onboarding at HTS, mentoring developers and making architecture decisions, and managing teams of up to 10 members as a Technical PM and Scrum Master at ArtfulBits."
   },
   {
     "question": "What is your experience with Docker and Kubernetes?",
@@ -114,10 +94,6 @@
   {
     "question": "Do you have experience with React?",
     "answer": "Yes, I use React for frontend development. This resume website was built with React 18 and Tailwind CSS, featuring a responsive design with dark mode support, dynamic data fetching from the Django backend, and a component-based architecture."
-  },
-  {
-    "question": "What makes you different from other candidates?",
-    "answer": "My unique combination of technical depth and project management experience sets me apart. I can write performant Python code and lead enterprise migrations, but I also understand Agile processes, team dynamics, and stakeholder management from 5 years as a Scrum Master. This dual perspective helps me make better architectural decisions and communicate effectively across all levels."
   },
   {
     "question": "Do you have experience with REST APIs?",

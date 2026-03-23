@@ -91,7 +91,7 @@ def chat_view(request):
 
     system_prompt = build_system_prompt()
 
-    def event_stream():
+    def event_stream():        
         full_response = []
         try:
             for token in stream_chat(system_prompt, message):
@@ -109,6 +109,7 @@ def chat_view(request):
                     done_data["chatlog_id"] = chat_log.id
                 except Exception:
                     logger.exception("Failed to save chat log")
+            logger.info("done_data: %s", done_data)
             yield f"data: {json.dumps(done_data)}\n\n"
         except Exception:
             logger.exception("LLM streaming error")

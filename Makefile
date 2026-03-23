@@ -54,10 +54,16 @@ install: install-backend install-frontend
 prod-up:
 	docker compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
 
+prod-up-backend:
+	docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build backend
+
 prod-down:
 	docker compose -f docker-compose.prod.yml --env-file .env.prod down
 
 prod-logs:
 	docker compose -f docker-compose.prod.yml --env-file .env.prod logs -f
 
-.PHONY: up down logs db run-backend makemigrations migrate seed createsuperuser run-frontend test-backend test-frontend test install-backend install-frontend install prod-up prod-down prod-logs
+prod-cleanup:
+	docker system prune -af
+
+.PHONY: up down logs db run-backend makemigrations migrate seed createsuperuser run-frontend test-backend test-frontend test install-backend install-frontend install prod-up prod-up-backend prod-down prod-logs prod-cleanup
