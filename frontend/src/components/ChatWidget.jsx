@@ -236,7 +236,7 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="fixed inset-0 sm:bottom-6 sm:right-6 sm:left-auto sm:top-auto z-50 sm:w-96 h-[100dvh] sm:h-[28rem] max-w-[100vw] box-border bg-white dark:bg-gray-800 sm:rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+    <div className="fixed top-0 left-0 w-[100dvw] h-[100dvh] sm:top-auto sm:left-auto sm:w-96 sm:h-[28rem] sm:bottom-6 sm:right-6 z-50 bg-white dark:bg-gray-800 sm:rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700 overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-xl">
         <span className="text-white font-medium text-sm">✦ AI &mdash; Ask about Roman</span>
