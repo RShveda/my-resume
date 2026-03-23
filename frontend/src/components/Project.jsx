@@ -101,7 +101,7 @@ export default function Project() {
                     <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
                         Architecture
                     </h3>
-                    <pre className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed font-mono">
+                    <pre className="text-[10px] sm:text-sm text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed font-mono max-w-full">
                         {`Internet (HTTPS)
    │
    ▼

@@ -202,7 +202,7 @@ export default function ChatWidget() {
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+      <div className="fixed right-4 sm:right-6 z-50 flex items-center gap-3" style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}>
         {/* Floating label */}
         {showLabel && (
           <div
@@ -236,7 +236,7 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-80 sm:w-96 h-[28rem] bg-white dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700">
+    <div className="fixed bottom-0 right-0 left-0 sm:bottom-6 sm:right-6 sm:left-auto z-50 w-full sm:w-96 h-[100dvh] sm:h-[28rem] bg-white dark:bg-gray-800 sm:rounded-xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-xl">
         <span className="text-white font-medium text-sm">✦ AI &mdash; Ask about Roman</span>
