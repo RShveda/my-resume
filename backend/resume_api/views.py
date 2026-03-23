@@ -111,9 +111,14 @@ def chat_view(request):
                     logger.exception("Failed to save chat log")
             logger.info("done_data: %s", done_data)
             yield f"data: {json.dumps(done_data)}\n\n"
-        except Exception:
-            logger.exception("LLM streaming error")
-            yield f"data: {json.dumps({'error': 'Something went wrong. Please try again.'})}\n\n"
+        except Exception as exc:
+            from groq import RateLimitError
+            if isinstance(exc, RateLimitError):
+                logger.warning("Groq rate limit hit: %s", exc)
+                yield f"data: {json.dumps({'error': 'The AI assistant has reached its usage limit. Please try again in about 30 minutes.'})}\n\n"
+            else:
+                logger.exception("LLM streaming error")
+                yield f"data: {json.dumps({'error': 'Something went wrong. Please try again.'})}\n\n"
 
     response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
     response["Cache-Control"] = "no-cache"
